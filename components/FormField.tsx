@@ -46,13 +46,18 @@ const FormField = ({
   <Controller
     control={control}
     //what is this control?
-    name="username"
+    name={name} // this used to be "username" and there was a bug that synced inputs to all of the inputs
     render={({ field }) => (
       // where is { field } getting passed in from?
       <FormItem>
         <FormLabel className="label">{label}</FormLabel>
         <FormControl>
-          <Input type={type} placeholder={placeholder} {...field} />
+          <Input
+            className="input"
+            type={type}
+            placeholder={placeholder}
+            {...field}
+          />
           {/* why are we typing in type n placeholder props if we're spreading field too? */}
         </FormControl>
         <FormMessage />
