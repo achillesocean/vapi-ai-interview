@@ -62,7 +62,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   // 2. define a submit handler
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
       if (type === "sign-up") {
         const { name, email, password } = values;
@@ -127,7 +127,11 @@ const AuthForm = ({ type }: { type: FormType }) => {
         <h3>Practice job interviews with AI</h3>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            action={async (formData) => {
+              // ✅ call the handler that uses server actions
+              const values = Object.fromEntries(formData) as any;
+              await handleSubmit(values);
+            }}
             className="space-y-6 mt-4 form"
           >
             {!isSignIn && (
